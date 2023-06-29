@@ -1,6 +1,9 @@
 package br.com.aosdata.gerenciador.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,17 @@ public class NovaEmpresa extends HttpServlet {
 		System.out.println("Cadastrando nova empresa");
 		
 		String nomeEmpresa = request.getParameter("nome");
+		String paramDataEmpres = request.getParameter("data");
+		
+		Date dataAbertura = null;
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			dataAbertura = (Date) sdf.parse(paramDataEmpres);
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}
+		
 		Empresa emp = new Empresa();
 		emp.setNome(nomeEmpresa);
 		
